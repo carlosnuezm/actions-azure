@@ -1,11 +1,13 @@
 name: Main workflow
-on: workflow_dispatch
+on: 
+  workflow_dispatch:
 
-permissions:
-  id-token: write
-  contents: read
 jobs:
   main:
     uses: ./.github/workflows/plan.yml
     with:
       username: mona
+    secrets:
+      client-id: ${{ secrets.AZURE_CLIENT_ID }}
+      tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+      subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}

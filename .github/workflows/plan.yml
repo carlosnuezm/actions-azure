@@ -3,16 +3,21 @@ on:
   workflow_call:
     inputs:
       username:
-        description: 'A username passed from the caller workflow'
-        default: 'john-doe'
-        required: false
+        required: true
         type: string
+    secrets:
+      client-id:
+        required: true
+      tenant-id:
+        required: true
+      subscription-id:
+        required: true
 
 permissions:
   id-token: write
   contents: read
 jobs:
-  build-and-deploy:
+  reusable_workflow_job:
     runs-on: ubuntu-latest
     steps:
       - name: Azure login
