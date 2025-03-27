@@ -5,7 +5,7 @@ permissions:
   id-token: write
   contents: read
 jobs:
-  build-and-deploy:
+  main:
     uses: ./.github/workflows/plan.yml
     with:
       username: mona
