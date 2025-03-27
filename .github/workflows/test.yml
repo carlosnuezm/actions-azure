@@ -30,5 +30,6 @@ jobs:
         with:
           azPSVersion: "latest"
           inlineScript: |
-            Get-AzContext
-            echo ${{ inputs.username }}
+            Get-AzVirtualNetwork `
+            -ResourceGroupName Recursos `
+            -Name ${{ inputs.username }}
