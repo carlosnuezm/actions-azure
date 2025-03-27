@@ -1,0 +1,11 @@
+name: Run Azure Login with OIDC
+on: workflow_dispatch
+
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  build-and-deploy:
+    uses: .github\workflows\DSC\templates\plan.yml
+    with:
+      username: mona
