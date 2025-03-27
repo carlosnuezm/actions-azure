@@ -6,6 +6,6 @@ permissions:
   contents: read
 jobs:
   build-and-deploy:
-    uses: ./.github/workflows/DSC/templates/plan.yml
+    uses: ./.github/workflows/plan.yml
     with:
       username: mona
