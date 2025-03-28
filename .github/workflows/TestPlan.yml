@@ -1,4 +1,4 @@
-name: TestPlan
+name: Test-Plan
 on:
     workflow_dispatch:
       inputs:
