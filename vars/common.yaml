@@ -1,0 +1,10 @@
+url: https://testing.url.com
+sql_user: sqluser
+UK_Nonprod:
+  resource-group: uk-testing
+  automation-account: uk-testing-ac
+  name: UK-NP
+US_Nonprod:
+  resource-group: us-testing
+  automation-account: us-testing-ac
+  name: US-NP
