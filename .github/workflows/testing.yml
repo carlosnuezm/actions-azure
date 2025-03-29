@@ -1,10 +1,6 @@
 name: Test-Plan
 on:
-  workflow_call:
-    inputs:
-      username:
-        required: true
-        type: string
+  push
 
 permissions:
   id-token: write
