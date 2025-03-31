@@ -16,5 +16,8 @@ jobs:
         run: echo "env_vars=${{ vars.TEST }}" >> $GITHUB_ENV
 
       - name: Check Azure Context
-        run: |
-          echo Generic-Command --p $env_vars
+        uses: azure/powershell@v2
+        with:
+          azPSVersion: "latest"
+          inlineScript: |
+            echo Generic-Command --p $env_vars
