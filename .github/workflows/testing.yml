@@ -17,4 +17,4 @@ jobs:
 
       - name: Check Azure Context
         run: |
-          echo Generic-Command --p ${{ env.env_vars }}
+          echo Generic-Command --p $Env:env_vars
