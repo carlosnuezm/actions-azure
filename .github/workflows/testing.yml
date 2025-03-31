@@ -13,11 +13,11 @@ jobs:
         uses: actions/checkout@v4
       
       - name: Load Variables
-        run: echo "env_vars=${{ vars.TEST }}" >> $GITHUB_ENV
+        run: echo "RG_NAME=Recursos" >> $Env:GITHUB_ENV
 
       - name: Check Azure Context
         uses: azure/powershell@v2
         with:
           azPSVersion: "latest"
           inlineScript: |
-            echo Generic-Command --p $Env:env_vars
+            Get-AzResourceGroup -Name '$Env:RG_NAME'
