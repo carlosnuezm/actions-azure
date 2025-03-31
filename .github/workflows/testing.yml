@@ -27,4 +27,4 @@ jobs:
         with:
           azPSVersion: "latest"
           inlineScript: |
-            Get-AzResourceGroup -Name "$Env:RG_NAME"
+            Get-AzResourceGroup -Name $Env:RG_NAME
