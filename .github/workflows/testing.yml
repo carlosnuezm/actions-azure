@@ -20,4 +20,4 @@ jobs:
         with:
           azPSVersion: "latest"
           inlineScript: |
-            echo Generic-Command --p $env_vars
+            echo Generic-Command --p $env:env_vars
