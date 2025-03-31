@@ -19,11 +19,11 @@ jobs:
       
       - name: Load Variables
         shell: pwsh
-        run: echo "RG_NAME=Recursos" >> $GITHUB_ENV
+        run: echo "RG_NAME=Recursos" >> $Env:GITHUB_ENV
 
       - name: Check Azure Context
         uses: azure/powershell@v2
         with:
           azPSVersion: "latest"
           inlineScript: |
-            Get-AzResourceGroup -Name '$RG_NAME'
+            Get-AzResourceGroup -Name 'Recursos'
