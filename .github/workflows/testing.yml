@@ -18,6 +18,7 @@ jobs:
           enable-AzPSSession: true
       
       - name: Load Variables
+        shell: pwsh
         run: echo "RG_NAME=Recursos" >> $Env:GITHUB_ENV
 
       - name: Check Azure Context
@@ -25,4 +26,4 @@ jobs:
         with:
           azPSVersion: "latest"
           inlineScript: |
-            Get-AzResourceGroup -Name $RG_NAME
+            Get-AzResourceGroup -Name '$RG_NAME'
