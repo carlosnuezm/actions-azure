@@ -1,6 +1,24 @@
 name: Test-Plan
 on:
-  push
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+          - info
+          - warning
+          - debug
+      uk_np:
+        required: true
+        type: boolean
+        default: false
+      uk_pd:
+        required: true
+        type: boolean
+        default: false
 
 permissions:
   id-token: write
@@ -20,6 +38,9 @@ jobs:
       - name: Load Variables
         shell: pwsh
         run: |
+          echo ${{ inputs.uk_np }}
+          echo ${{ inputs.uk_pd }}
+          echo ${{ inputs.logLevel }}
           echo "RG_NAME=Recursos" >> "$Env:GITHUB_ENV"
 
       - name: Check Azure Context
