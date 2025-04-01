@@ -5,6 +5,9 @@ on:
       username:
         required: true
         type: string
+      env_name:
+        required: true
+        type: string
     secrets:
       client-id:
         required: true
@@ -20,6 +23,7 @@ permissions:
 jobs:
   reusable_workflow_job:
     runs-on: ubuntu-latest
+    environment: ${{ inputs.env_name }}
     steps:
       - name: Azure login
         uses: azure/login@v2
