@@ -37,7 +37,8 @@ jobs:
         shell: pwsh
         run: |
           $ResourceGroup='Recursos'
-          echo "RG_NAME=::add-mask::$ResourceGroup" >> "$Env:GITHUB_ENV"
+          echo "::add-mask::$ResourceGroup"
+          echo "RG_NAME=$ResourceGroup" >> "$Env:GITHUB_ENV"
 
       - name: Azure PowerShell script
         uses: azure/powershell@v2
