@@ -1,5 +1,5 @@
 common:
-  url: 'https://testing.url.com'
+  url: https://testing.url.com
   sql_user: sqluser
 uk:
   nonprod:

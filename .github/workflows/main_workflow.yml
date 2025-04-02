@@ -28,22 +28,19 @@ jobs:
         run: sudo apt-get install -y yq
 
       - name: Export variables
+        id: export_vars
         run: |
-          eval "$(yq '.common | to_entries | .[] | "echo \(.key)=\(.value) >> $GITHUB_ENV"' ${{github.workspace}}/vars/common.yaml)"
-          eval "$(yq ".${{ inputs.region }}.${{ inputs.environment }}. | to_entries | .[] | \"echo \\(.key)=\\(.value) >> $GITHUB_ENV\"" ${{github.workspace}}/vars/common.yaml)"
-          
-      - name: Use variables in another step
-        run: |
-          echo "SQL User: $url"
-          echo "Service Name: $sql_user"
-          echo "Resource Group: $resource-group"
-          echo "Automation Account: $automation-account"
-          echo "Region: $name"
+          echo "resource_group=$(yq .${{ inputs.region }}.${{ inputs.environment }}.resource-group ${{github.workspace}}/vars/common.yaml)" >> "$GITHUB_OUTPUT"
+          echo "sql_user=$(yq .common.sql_user-group ${{github.workspace}}/vars/common.yaml)" >> "$GITHUB_OUTPUT"
+    outputs:
+      resource_group: ${{ steps.export_vars.outputs.resource_group }}
+      sql_user: ${{ steps.export_vars.outputs.sql_user }}
   build:
     uses: ./.github/workflows/plan.yml
+    needs: init_config
     with:
-      username: mona
-      env_name: testing
+      username: ${{needs.init_config.outputs.resource_group}}
+      env_name: ${{needs.init_config.outputs.sql_user}}
     secrets:
       client-id: ${{ secrets.AZURE_CLIENT_ID }}
       tenant-id: ${{ secrets.AZURE_TENANT_ID }}
