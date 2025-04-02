@@ -32,11 +32,16 @@ jobs:
           tenant-id: ${{ secrets.tenant-id }}
           subscription-id: ${{ secrets.subscription-id }}
           enable-AzPSSession: true
+        
+      - name: Load Variables
+        shell: pwsh
+        run: |
+          RG_NAME=Recursos
+          echo ::add-mask::$RG_NAME >> "$Env:GITHUB_ENV"
 
       - name: Azure PowerShell script
         uses: azure/powershell@v2
         with:
           azPSVersion: "latest"
           inlineScript: |
-            Get-AzContext
-            echo ${{ inputs.username }}
+            Get-AzResourceGroup -Name $Env:RG_NAME
