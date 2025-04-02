@@ -2,10 +2,13 @@ name: Plan Testing
 on:
   workflow_call:
     inputs:
-      username:
+      resource_group:
         required: true
         type: string
       env_name:
+        required: true
+        type: string
+      sql_user:
         required: true
         type: string
     secrets:
@@ -32,6 +35,12 @@ jobs:
           tenant-id: ${{ secrets.tenant-id }}
           subscription-id: ${{ secrets.subscription-id }}
           enable-AzPSSession: true
+
+      - name: Show Variables
+        shell: pwsh
+        run: |
+          echo ${{ inputs.resource_group }}
+          echo ${{ inputs.sql_user }}
         
       - name: Load Variables
         shell: pwsh

@@ -39,8 +39,9 @@ jobs:
     uses: ./.github/workflows/plan.yml
     needs: init_config
     with:
-      username: ${{needs.init_config.outputs.resource_group}}
-      env_name: ${{needs.init_config.outputs.sql_user}}
+      resource_group: ${{needs.init_config.outputs.resource_group}}
+      sql_user: ${{needs.init_config.outputs.sql_user}}
+      env_name: testing   
     secrets:
       client-id: ${{ secrets.AZURE_CLIENT_ID }}
       tenant-id: ${{ secrets.AZURE_TENANT_ID }}
