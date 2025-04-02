@@ -29,8 +29,8 @@ jobs:
 
       - name: Export variables
         run: |
-          eval "$(yq '.common | to_entries | .[] | "echo \(.key)=\(.value) >> $GITHUB_ENV"' ${{github.workspace}}/vars/common.yaml)"
-          eval "$(yq ".${{ inputs.region }}.${{ inputs.environment }}. | to_entries | .[] | \"echo \\(.key)=\\(.value) >> $GITHUB_ENV\"" ${{github.workspace}}/vars/common.yaml)"
+          eval "$(yq '.common | to_entries | .[] | "echo \(.key)=\(.value) >> $Env:GITHUB_ENV"' ${{github.workspace}}/vars/common.yaml)"
+          eval "$(yq ".${{ inputs.region }}.${{ inputs.environment }}. | to_entries | .[] | \"echo \\(.key)=\\(.value) >> $Env:GITHUB_ENV\"" ${{github.workspace}}/vars/common.yaml)"
           
       - name: Use variables in another step
         run: |
