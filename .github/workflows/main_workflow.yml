@@ -30,10 +30,13 @@ jobs:
       - name: Export variables
         id: export_vars
         run: |
-          yq '.${{ inputs.region }}.${{ inputs.environment }}.resource-group' ${{github.workspace}}/vars/common.yaml
+          SQL_USER=$(yq '.${{ inputs.region }}.${{ inputs.environment }}.resource-group' ${{github.workspace}}/vars/common.yaml)
+          RESOURCE_GROUP=$(yq '.common.sql_user' ${{github.workspace}}/vars/common.yaml)
+          echo "RESOURCE_GROUP=${RESOURCE_GROUP}" >> GITHUB_OUTPUT
+          echo "SQL_USER=${SQL_USER}" >> GITHUB_OUTPUT
     outputs:
-      resource_group: ${{ steps.export_vars.outputs.resource_group }}
-      sql_user: ${{ steps.export_vars.outputs.sql_user }}
+      resource_group: ${{ steps.export_vars.outputs.RESOURCE_GROUP }}
+      sql_user: ${{ steps.export_vars.outputs.SQL_USER }}
   build:
     uses: ./.github/workflows/plan.yml
     needs: init_config
