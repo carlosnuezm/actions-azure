@@ -6,7 +6,7 @@ uk:
     resource-group: uk-np-testing
     automation-account: uk-np-testing-ac
     name: uk-nonprod
-  stge:
+  stage:
     resource-group: uk-stg-testing
     automation-account: uk-stg-testing-ac
     name: uk-stg
@@ -19,7 +19,7 @@ us:
     resource-group: us-np-testing
     automation-account: us-np-testing-ac
     name: us-nonprod
-  stge:
+  stage:
     resource-group: us-stg-testing
     automation-account: us-stg-testing-ac
     name: us-stg

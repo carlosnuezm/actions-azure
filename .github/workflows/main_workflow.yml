@@ -1,21 +1,48 @@
 name: Main workflow
 on: 
   workflow_dispatch:
+    inputs:
+      region:
+        required: true
+        type: choice
+        options:
+          - us
+          - uk
+      environment:
+        required: true
+        type: choice
+        options:
+          - nonprod
+          - stage
+          - prod
+
 
 jobs:
-  one:
+  init_config:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        
+      - name: Install yq
+        run: sudo apt-get install -y yq
+
+      - name: Export variables
+        run: |
+          eval "$(yq '.common | to_entries | .[] | "echo \(.key)=\(.value) >> $GITHUB_ENV"' ${{github.workspace}}/vars/common.yaml)"
+          eval "$(yq ".${{ inputs.region }}.${{ inputs.environment }}. | to_entries | .[] | \"echo \\(.key)=\\(.value) >> $GITHUB_ENV\"" ${{github.workspace}}/vars/common.yaml)"
+          
+      - name: Use variables in another step
+        run: |
+          echo "SQL User: $url"
+          echo "Service Name: $sql_user"
+          echo "Resource Group: $resource-group"
+          echo "Automation Account: $automation-account"
+          echo "Region: $name"
+  build:
     uses: ./.github/workflows/plan.yml
     with:
       username: mona
-      env_name: testing
-    secrets:
-      client-id: ${{ secrets.AZURE_CLIENT_ID }}
-      tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-      subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-  second:
-    uses: ./.github/workflows/plan.yml
-    with:
-      username: joan
       env_name: testing
     secrets:
       client-id: ${{ secrets.AZURE_CLIENT_ID }}
