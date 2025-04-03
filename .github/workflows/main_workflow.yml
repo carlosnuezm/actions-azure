@@ -15,6 +15,14 @@ on:
           - nonprod
           - stage
           - prod
+      nonprod:
+        required: true
+        type: boolean
+        default: false
+      prod:
+        required: true
+        type: boolean
+        default: false
 
 
 jobs:
@@ -28,22 +36,49 @@ jobs:
         run: sudo apt-get install -y yq
 
       - name: Export variables
-        id: export_vars
+        if: ${{ inputs.nonprod }}
+        id: nonprod_vars
         run: |
           SQL_USER=$(yq '.common.sql_user' ${{github.workspace}}/vars/common.yaml)
           RESOURCE_GROUP=$(yq ".${{ inputs.region }}.${{ inputs.environment }}.resource_group" ${{github.workspace}}/vars/common.yaml)
 
           echo "RESOURCE_GROUP=${RESOURCE_GROUP}" >> "$GITHUB_OUTPUT"
           echo "SQL_USER=${SQL_USER}" >> "$GITHUB_OUTPUT"
+
+      - name: Export variables
+        if: ${{ inputs.prod}}
+        id: prod_vars
+        run: |
+          SQL_USER=$(yq '.common.sql_user' ${{github.workspace}}/vars/common.yaml)
+          RESOURCE_GROUP=$(yq ".${{ inputs.region }}.${{ inputs.environment }}.resource_group" ${{github.workspace}}/vars/common.yaml)
+
+          echo "RESOURCE_GROUP=${RESOURCE_GROUP}" >> "$GITHUB_OUTPUT"
+          echo "SQL_USER=${SQL_USER}" >> "$GITHUB_OUTPUT"
+
     outputs:
-      resource_group: ${{ steps.export_vars.outputs.RESOURCE_GROUP }}
-      sql_user: ${{ steps.export_vars.outputs.SQL_USER }}
-  build:
+      nonprod_resource_group: ${{ steps.nonprod_vars.outputs.RESOURCE_GROUP }}
+      nonprod_sql_user: ${{ steps.nonprod_vars.outputs.SQL_USER }}
+      prod_resource_group: ${{ steps.nonprod_vars.outputs.RESOURCE_GROUP }}
+      prod_sql_user: ${{ steps.nonprod_vars.outputs.SQL_USER }}
+      
+  nonprod:
     uses: ./.github/workflows/plan.yml
     needs: init_config
     with:
-      resource_group: ${{needs.init_config.outputs.resource_group}}
-      sql_user: ${{needs.init_config.outputs.sql_user}}
+      resource_group: ${{needs.init_config.outputs.nonprod_resource_group}}
+      sql_user: ${{needs.init_config.outputs.nonprod_sql_user}}
+      env_name: testing   
+    secrets:
+      client-id: ${{ secrets.AZURE_CLIENT_ID }}
+      tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+      subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+  prod:
+    uses: ./.github/workflows/plan.yml
+    needs: init_config
+    with:
+      resource_group: ${{needs.init_config.outputs.prod_resource_group}}
+      sql_user: ${{needs.init_config.outputs.prod_sql_user}}
       env_name: testing   
     secrets:
       client-id: ${{ secrets.AZURE_CLIENT_ID }}
