@@ -3,27 +3,27 @@ common:
   sql_user: sqluser
 uk:
   nonprod:
-    resource-group: uk-np-testing
-    automation-account: uk-np-testing-ac
+    resource_group: uk-np-testing
+    automation_account: uk-np-testing-ac
     name: uk-nonprod
   stage:
-    resource-group: uk-stg-testing
-    automation-account: uk-stg-testing-ac
+    resource_group: uk-stg-testing
+    automation_account: uk-stg-testing-ac
     name: uk-stg
   prod:
-    resource-group: uk-prod-testing
-    automation-account: uk-prod-testing-ac
+    resource_group: uk-prod-testing
+    automation_account: uk-prod-testing-ac
     name: uk-prod
 us:
   nonprod:
-    resource-group: us-np-testing
-    automation-account: us-np-testing-ac
+    resource_group: us-np-testing
+    automation_account: us-np-testing-ac
     name: us-nonprod
   stage:
-    resource-group: us-stg-testing
-    automation-account: us-stg-testing-ac
+    resource_group: us-stg-testing
+    automation_account: us-stg-testing-ac
     name: us-stg
   prod:
-    resource-group: us-prod-testing
-    automation-account: us-prod-testing-ac
+    resource_group: us-prod-testing
+    automation_account: us-prod-testing-ac
     name: us-prod

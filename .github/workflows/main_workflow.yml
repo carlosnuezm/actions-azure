@@ -30,8 +30,6 @@ jobs:
       - name: Export variables
         id: export_vars
         run: |
-          cat ${{github.workspace}}/vars/common.yaml
-
           SQL_USER=$(yq ".${{ inputs.region }}.${{ inputs.environment }}.resource-group" ${{github.workspace}}/vars/common.yaml)
           RESOURCE_GROUP=$(yq '.common.sql_user' ${{github.workspace}}/vars/common.yaml)
 
