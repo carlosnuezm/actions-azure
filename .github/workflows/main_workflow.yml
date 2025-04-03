@@ -33,8 +33,8 @@ jobs:
           SQL_USER=$(yq '.common.sql_user' ${{github.workspace}}/vars/common.yaml)
           RESOURCE_GROUP=$(yq ".${{ inputs.region }}.${{ inputs.environment }}.resource_group" ${{github.workspace}}/vars/common.yaml)
 
-          echo "RESOURCE_GROUP=${RESOURCE_GROUP}" >> GITHUB_OUTPUT
-          echo "SQL_USER=${SQL_USER}" >> GITHUB_OUTPUT
+          echo "RESOURCE_GROUP=${RESOURCE_GROUP}" >> "$GITHUB_OUTPUT"
+          echo "SQL_USER=${SQL_USER}" >> "$GITHUB_OUTPUT"
     outputs:
       resource_group: ${{ steps.export_vars.outputs.RESOURCE_GROUP }}
       sql_user: ${{ steps.export_vars.outputs.SQL_USER }}
