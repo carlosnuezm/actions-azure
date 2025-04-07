@@ -43,6 +43,7 @@ jobs:
           RESOURCE_GROUP=$(yq ".${{ inputs.region }}.${{ inputs.environment }}.resource_group" ${{github.workspace}}/vars/common.yaml)
 
           if [ "${{ inputs.environment }}" = "nonprod" ]; then
+            echo "TESTING IF"
             SQL_USER="NONPRODTESTING"
           fi
 
