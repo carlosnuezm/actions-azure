@@ -42,9 +42,9 @@ jobs:
           SQL_USER=$(yq '.common.sql_user' ${{github.workspace}}/vars/common.yaml)
           RESOURCE_GROUP=$(yq ".${{ inputs.region }}.${{ inputs.environment }}.resource_group" ${{github.workspace}}/vars/common.yaml)
 
-          if [ "${{ inputs.environment }}" = "nonprod" ]; then
+          if [ "${{ inputs.environment }}" != "nonprod" ]; then
             echo "TESTING IF"
-            SQL_USER="NONPRODTESTING"
+            SQL_USER="PRODTESTING"
           fi
 
           echo "RESOURCE_GROUP=${RESOURCE_GROUP}" >> "$GITHUB_OUTPUT"
@@ -69,6 +69,7 @@ jobs:
   nonprod:
     uses: ./.github/workflows/plan.yml
     needs: init_config
+    if: ${{ inputs.nonprod }}
     with:
       resource_group: ${{needs.init_config.outputs.nonprod_resource_group}}
       sql_user: ${{needs.init_config.outputs.nonprod_sql_user}}
@@ -81,6 +82,7 @@ jobs:
   prod:
     uses: ./.github/workflows/plan.yml
     needs: init_config
+    if: ${{ inputs.prod}}
     with:
       resource_group: ${{needs.init_config.outputs.prod_resource_group}}
       sql_user: ${{needs.init_config.outputs.prod_sql_user}}
