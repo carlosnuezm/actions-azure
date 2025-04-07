@@ -44,7 +44,7 @@ jobs:
 
           if [ "${{ inputs.environment }}" != "nonprod" ]; then
             echo "TESTING IF"
-            SQL_USER="PRODTESTING"
+            SQL_USER="NONPRODTESTING"
           fi
 
           echo "RESOURCE_GROUP=${RESOURCE_GROUP}" >> "$GITHUB_OUTPUT"
@@ -56,6 +56,11 @@ jobs:
         run: |
           SQL_USER=$(yq '.common.sql_user' ${{github.workspace}}/vars/common.yaml)
           RESOURCE_GROUP=$(yq ".${{ inputs.region }}.${{ inputs.environment }}.resource_group" ${{github.workspace}}/vars/common.yaml)
+
+          if [ "${{ inputs.environment }}" != "nonprod" ]; then
+            echo "TESTING IF"
+            SQL_USER="NONPRODTESTING"
+          fi
 
           echo "RESOURCE_GROUP=${RESOURCE_GROUP}" >> "$GITHUB_OUTPUT"
           echo "SQL_USER=${SQL_USER}" >> "$GITHUB_OUTPUT"
