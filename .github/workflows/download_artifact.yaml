@@ -7,26 +7,28 @@ permissions:
   contents: read
 
 jobs:
+  upload_artifact:
+    uses: ./.github/workflows/upload_artifact.yml
+
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - uses: actions/github-script@v7
-        with:
-          script: |
-            const runid = await github.rest.actions.getWorkflow({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: 'upload_artifact.yml'
-            })
-            console.log(runid)
-        
+      
       - name: Download
         uses: actions/download-artifact@v4
         with:
           name: test
-          github-token: ${{ secrets.GHACTIONS }} # token with actions:read permissions on target repo
-          repository: carlosnuezm/actions-azure
-          run-id: 14369579356
+      
+      # - uses: actions/github-script@v7
+      #   with:
+      #     script: |
+      #       const runid = await github.rest.actions.getWorkflow({
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         workflow_id: 'upload_artifact.yml'
+      #       })
+      #       console.log(runid)
+        
+      
