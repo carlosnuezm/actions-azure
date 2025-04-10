@@ -16,7 +16,7 @@ jobs:
       - uses: actions/github-script@v7
         with:
           script: |
-            const runid = github.rest.actions.getWorkflow({
+            const runid = await github.rest.actions.getWorkflow({
               owner: context.repo.owner,
               repo: context.repo.repo,
               workflow_id: 'upload_artifact.yml'
