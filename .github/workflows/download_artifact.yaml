@@ -23,4 +23,4 @@ jobs:
           name: test
           github-token: ${{ secrets.GHACTIONS }} # token with actions:read permissions on target repo
           repository: carlosnuezm/actions-azure
-          run-id: ${{inputs.runid}}
+          run-id: 14369579356
