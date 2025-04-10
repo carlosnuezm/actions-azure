@@ -1,6 +1,10 @@
-name: Run Azure Login with OIDC
+name: Download Artifact
 on:
-  push
+  workflow_dispatch:
+    inputs:
+      runid:
+        required: true
+        type: string
 
 
 permissions:
@@ -19,4 +23,4 @@ jobs:
           name: test
           github-token: ${{ secrets.GHACTIONS }} # token with actions:read permissions on target repo
           repository: carlosnuezm/actions-azure
-          run-id: 123414369479536
+          run-id: ${{inputs.runid}}
