@@ -1,0 +1,22 @@
+name: Run Azure Login with OIDC
+on:
+  push
+
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Download
+        uses: actions/download-artifact@v4
+        with:
+          name: test
+          github-token: ${{ secrets.GHACTIONS }} # token with actions:read permissions on target repo
+          repository: carlosnuezm/actions-azure
+          run-id: 123414369479536
