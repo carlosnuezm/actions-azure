@@ -21,7 +21,7 @@ jobs:
               repo: context.repo.repo,
               workflow_id: 'upload_artifact.yml'
             })
-            echo runid
+            console.log(runid)
         
       - name: Download
         uses: actions/download-artifact@v4
