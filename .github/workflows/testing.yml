@@ -38,10 +38,8 @@ jobs:
       - name: Load Variables
         shell: pwsh
         run: |
-          echo ${{ inputs.uk_np }}
-          echo ${{ inputs.uk_pd }}
-          echo ${{ inputs.logLevel }}
-          echo "RG_NAME=Recursos" >> "$Env:GITHUB_ENV"
+          RG_NAME=Recursos
+          echo ::add-mask::$RG_NAME >> "$Env:GITHUB_ENV"
 
       - name: Check Azure Context
         uses: azure/powershell@v2

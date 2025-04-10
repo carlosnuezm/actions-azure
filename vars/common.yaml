@@ -1,10 +1,29 @@
-url: https://testing.url.com
-sql_user: sqluser
-UK_Nonprod:
-  resource-group: uk-testing
-  automation-account: uk-testing-ac
-  name: UK-NP
-US_Nonprod:
-  resource-group: us-testing
-  automation-account: us-testing-ac
-  name: US-NP
+common:
+  url: https://testing.url.com
+  sql_user: sqluser
+uk:
+  nonprod:
+    resource_group: uk-np-testing
+    automation_account: uk-np-testing-ac
+    name: uk-nonprod
+  stage:
+    resource_group: uk-stg-testing
+    automation_account: uk-stg-testing-ac
+    name: uk-stg
+  prod:
+    resource_group: uk-prod-testing
+    automation_account: uk-prod-testing-ac
+    name: uk-prod
+us:
+  nonprod:
+    resource_group: us-np-testing
+    automation_account: us-np-testing-ac
+    name: us-nonprod
+  stage:
+    resource_group: us-stg-testing
+    automation_account: us-stg-testing-ac
+    name: us-stg
+  prod:
+    resource_group: us-prod-testing
+    automation_account: us-prod-testing-ac
+    name: us-prod

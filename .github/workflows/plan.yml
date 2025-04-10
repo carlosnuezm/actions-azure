@@ -2,7 +2,13 @@ name: Plan Testing
 on:
   workflow_call:
     inputs:
-      username:
+      resource_group:
+        required: true
+        type: string
+      env_name:
+        required: true
+        type: string
+      sql_user:
         required: true
         type: string
     secrets:
@@ -20,6 +26,7 @@ permissions:
 jobs:
   reusable_workflow_job:
     runs-on: ubuntu-latest
+    environment: ${{ inputs.env_name }}
     steps:
       - name: Azure login
         uses: azure/login@v2
@@ -29,10 +36,22 @@ jobs:
           subscription-id: ${{ secrets.subscription-id }}
           enable-AzPSSession: true
 
+      - name: Show Variables
+        shell: pwsh
+        run: |
+          echo ${{ inputs.resource_group }}
+          echo ${{ inputs.sql_user }}
+        
+      - name: Load Variables
+        shell: pwsh
+        run: |
+          $ResourceGroup='Recursos'
+          echo "::add-mask::$ResourceGroup"
+          echo "RG_NAME=$ResourceGroup" >> "$Env:GITHUB_ENV"
+
       - name: Azure PowerShell script
         uses: azure/powershell@v2
         with:
           azPSVersion: "latest"
           inlineScript: |
-            Get-AzContext
-            echo ${{ inputs.username }}
+            Get-AzResourceGroup -Name $Env:RG_NAME
