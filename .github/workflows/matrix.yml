@@ -27,5 +27,6 @@ jobs:
     strategy:
       matrix: ${{ fromJson(needs.getvariables.outputs.NAMES) }}
     steps:
-      - name: Echo Version
-        run: echo ${{ matrix.version }}
+      - name: Remote Actions
+        shell: pwsh
+        run: .\scripts\remote-ops.ps1 -ComputerName "${{ matrix.servers }}" -Username $env:REMOTE_USER -Password $env:REMOTE_PASS
