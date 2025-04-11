@@ -1,0 +1,13 @@
+name: Main workflow
+on:
+  push
+
+jobs:
+  matrix_testing:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        version: ["ver1"]
+    steps:
+      - name: Echo Version
+        run: echo ${{ matrix.version }}
