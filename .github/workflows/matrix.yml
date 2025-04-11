@@ -1,13 +1,30 @@
 name: Main workflow
 on:
-  push
+  workflow_dispatch:
+    inputs:
+      var_list:
+        description: 'aaa'
+        required: true
+        type: string
 
 jobs:
+  getvariables:
+    runs-on: windows-latest
+    steps:
+      - name: Get Vars
+        id: vars
+        run: |
+          $data = ${{ inputs.var_list }} - split ',' | ConvertTo-Json -Compress
+          echo "NAMES=$data" >> $env:GITHUB_OUTPUT
+    outputs:
+      NAMES: ${{ steps.vars.outputs.NAMES }}
+    
   matrix_testing:
     runs-on: windows-latest
+    needs: getvariables
     strategy:
       matrix:
-        version: ["ver1"]
+        version: ${{ fromJson(needs.getvariables.outputs.NAMES) }}
     steps:
       - name: Echo Version
         run: echo ${{ matrix.version }}
