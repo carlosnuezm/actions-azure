@@ -25,8 +25,7 @@ jobs:
     runs-on: windows-latest
     needs: getvariables
     strategy:
-      matrix:
-        version: ${{ fromJson(needs.getvariables.outputs.NAMES) }}
+      matrix: ${{ fromJson(needs.getvariables.outputs.NAMES) }}
     steps:
       - name: Echo Version
         run: echo ${{ matrix.version }}
