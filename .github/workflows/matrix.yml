@@ -13,8 +13,9 @@ jobs:
     steps:
       - name: Get Vars
         id: vars
+        shell: pwsh
         run: |
-          $data = ${{ inputs.var_list }} - split ',' | ConvertTo-Json -Compress
+          $data = "${{ inputs.var_list }}" - split ',' | ConvertTo-Json -Compress
           echo "NAMES=$data" >> $env:GITHUB_OUTPUT
     outputs:
       NAMES: ${{ steps.vars.outputs.NAMES }}
