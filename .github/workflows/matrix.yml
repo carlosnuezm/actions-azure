@@ -15,8 +15,9 @@ jobs:
         id: vars
         shell: pwsh
         run: |
-          $data = "${{ inputs.var_list }}" -split ',' | ConvertTo-Json -Compress
-          echo "NAMES=$data" >> $env:GITHUB_OUTPUT
+          $items = "${{ inputs.var_list }}" -split ','
+          $matrix = @{ version = @($items) } | ConvertTo-Json -Compress
+          echo "NAMES=$matrix" >> $env:GITHUB_OUTPUT
     outputs:
       NAMES: ${{ steps.vars.outputs.NAMES }}
     
