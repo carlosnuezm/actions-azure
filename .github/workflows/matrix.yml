@@ -1,4 +1,4 @@
-name: Main workflow
+name: Matrix
 on:
   workflow_dispatch:
     inputs:
