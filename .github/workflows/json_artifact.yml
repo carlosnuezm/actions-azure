@@ -22,4 +22,4 @@ jobs:
         shell: pwsh
         run: |
           $jsonfile = Get-Content -Raw -Path $env:file_path | ConvertFrom-Json
-          Write-Host '$jsonfile'
+          Write-Host $jsonfile
