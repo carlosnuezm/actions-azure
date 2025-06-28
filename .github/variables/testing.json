@@ -1,0 +1,23 @@
+{
+  "common":{
+    "url": "https://testing.com"
+  },
+  "uk":{
+    "nonprod":{
+      "prefix": "UK_NONPROD",
+      "resource_group": "uk_np_rg",
+      "account_name": "uk_np_account",
+      "secrets":[
+        "UserPasswdNP", "SQLPasswdNP"
+      ]
+    },
+    "prod":{
+      "prefix": "UK_PROD",
+      "resource_group": "uk_prod_rg",
+      "account_name": "uk_prod_account",
+      "secrets":[
+        "UserPasswd", "SQLPasswd"
+      ]
+    }
+  }
+}
