@@ -1,0 +1,22 @@
+name: Generate JSON file
+
+on:
+  workflow_dispatch
+
+env:
+  file_path: .github/variables/testing.json
+
+permissions:
+  contents: read
+
+jobs:
+  generate-json:
+    name: Generate JSON file
+    runs-on: windows-latest
+    steps:
+      - name: Generate JSON file
+        id: jsonfile
+        shell: pwsh
+        run: |
+          $jsonfile = ConvertFrom-Json $env:file_path
+          Write-Host '$jsonfile'
