@@ -30,7 +30,7 @@ jobs:
           }
 
           $jsonData = $data | ConvertTo-Json -Depth 5
-          Set-Content -Path "${{github.workflow}}/product_info.json" -Value $jsonData
+          Set-Content -Path "${{github.workspace}}/product_info.json" -Value $jsonData
 
       - name: Upload Json
         uses: actions/upload-artifact@v4
