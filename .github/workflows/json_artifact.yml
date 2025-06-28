@@ -22,4 +22,18 @@ jobs:
         shell: pwsh
         run: |
           $jsonfile = Get-Content -Raw -Path $env:file_path | ConvertFrom-Json
-          Write-Host $jsonfile
+          $data = @{
+            url = $jsonfile.common.url
+            prefix  = $jsonfile.uk.nonprod.prefix
+            resource_group  = $jsonfile.uk.nonprod.resource_group
+            account_name  = $jsonfile.uk.nonprod.account_name
+          }
+
+          $jsonData = $data | ConvertTo-Json -Depth 5
+          Set-Content -Path "${{github.workflow}}/product_info.json" -Value $jsonData
+
+      - name: Upload Json
+        uses: actions/upload-artifact@v4
+        with:
+          name: product_info.json
+          path: ${{github.workflow}}/product_info.json
